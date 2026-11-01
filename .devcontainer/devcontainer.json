@@ -1,6 +1,9 @@
 {
-	"name": "recognize-anything-api",
-	"image": "ghcr.io/astral-sh/uv:0.13.6-python3.15-trixie@sha256:f68dfb3eaf23a53afb5f74833bdacc0ce586d69f8063c48f9f3ebbe42e048e4a",
+	"name": "ram-api",
+	"build": {
+		"dockerfile": "../Dockerfile",
+		"context": ".."
+	},
 	"customizations": {
 		"vscode": {
 			"extensions": [

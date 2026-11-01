@@ -1,2 +1,5 @@
 run:
-	uv run -- uvicorn --host=0.0.0.0 --port=8000 src.recognize_anything_api.server:app
+	uv run --offline -- uvicorn --host=0.0.0.0 --port=8000 src.ram_api.server:app
+
+run-docker:
+	docker compose up --build

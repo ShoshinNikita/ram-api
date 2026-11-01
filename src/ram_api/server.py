@@ -7,7 +7,7 @@ from PIL import Image
 import rawpy
 import magic
 
-from recognize_anything_api.load_models import load_ram_plus
+from ram_api.load_models import load_ram_plus
 from contextlib import asynccontextmanager
 
 

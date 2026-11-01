@@ -6,12 +6,17 @@ RUN mkdir -p /data/pretrained/
 RUN wget -O /data/pretrained/ram_plus_swin_large_14m.pth https://huggingface.co/xinyu1205/recognize-anything-plus-model/resolve/main/ram_plus_swin_large_14m.pth
 
 COPY uv.lock .python-version ./
+ENV UV_LINK_MODE=copy
 RUN --mount=type=cache,target=/root/.cache/uv \
 	uv sync --frozen --no-install-project
 
 COPY pyproject.toml .
-COPY src/recognize_anything_api src/recognize_anything_api/
+COPY src/ram_api src/ram_api/
 COPY recognize_anything recognize_anything
+
+RUN --mount=type=cache,target=/root/.cache/uv \
+	uv sync --locked
+
 COPY Makefile .
 
 ENTRYPOINT ["make", "run"]

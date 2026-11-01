@@ -68,9 +68,7 @@ curl --verbose -F file=@/path/to/image.jpg localhost:8000/
 
 You can choose which model is used by setting the `MODEL_NAME` environment variable to one of:
 
-- `ram_plus` (default)
-- `ram`
-- `tag2text`
+- `ram_plus`
 
 See [./server.py](./server.py) for other options.
 

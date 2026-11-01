@@ -7,15 +7,12 @@ from PIL import Image
 import rawpy
 import magic
 
-from load_models import load_model
+from recognize_anything_api.load_models import load_ram_plus
 from contextlib import asynccontextmanager
 
 
 class Settings(BaseSettings):
-    model_name: str = "ram_plus"
     image_size: int = 384
-    threshold: float = 0.68
-    delete_tag_index: Optional[List[int]] = None
 
 
 settings = Settings()
@@ -23,12 +20,7 @@ settings = Settings()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    yield load_model(
-        settings.model_name,
-        settings.image_size,
-        settings.threshold,
-        settings.delete_tag_index
-    )
+    yield load_ram_plus(settings.image_size)
 
 
 app = FastAPI(lifespan=lifespan)

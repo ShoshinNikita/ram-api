@@ -1,43 +1,17 @@
-FROM ubuntu:22.04 AS dependencies
+FROM ghcr.io/astral-sh/uv:0.13.6-python3.15-trixie@sha256:f68dfb3eaf23a53afb5f74833bdacc0ce586d69f8063c48f9f3ebbe42e048e4a
 
-RUN apt-get update && apt-get install \
-    python3 \
-    python3-pip \
-    build-essential \
-    zlib1g-dev \
-    libncurses5-dev \
-    libgdbm-dev \
-    libnss3-dev \
-    libssl-dev \
-    libreadline-dev \
-    libffi-dev \
-    libmagic1 \
-    wget \
-    curl \
-    git -y
+WORKDIR /srv
 
-RUN pip install --upgrade setuptools
-
-FROM dependencies AS pip_dependencies
-
-WORKDIR /opt/app
-ADD requirements.txt setup.cfg setup.py /opt/app/
-RUN --mount=type=cache,target=/root/.cache/pip pip install -e .
-
-FROM ubuntu:22.04 AS models
-
-RUN apt-get update && apt-get install wget -y
 RUN mkdir -p /data/pretrained/
 RUN wget -O /data/pretrained/ram_plus_swin_large_14m.pth https://huggingface.co/xinyu1205/recognize-anything-plus-model/resolve/main/ram_plus_swin_large_14m.pth
-RUN wget -O /data/pretrained/ram_swin_large_14m.pth https://huggingface.co/spaces/xinyu1205/Recognize_Anything-Tag2Text/resolve/main/ram_swin_large_14m.pth
-RUN wget -O /data/pretrained/tag2text_swin_14m.pth https://huggingface.co/spaces/xinyu1205/Recognize_Anything-Tag2Text/resolve/main/tag2text_swin_14m.pth
 
+COPY uv.lock .python-version ./
+RUN --mount=type=cache,target=/root/.cache/uv \
+	uv sync --frozen --no-install-project
 
-FROM pip_dependencies AS runtime
+COPY pyproject.toml .
+COPY src/recognize_anything_api src/recognize_anything_api/
+COPY recognize_anything recognize_anything
+COPY Makefile .
 
-COPY --from=models /data /data
-ADD . /opt/app
-
-RUN python3 /opt/app/init.py
-
-ENTRYPOINT ["./server.sh"]
+ENTRYPOINT ["make", "run"]

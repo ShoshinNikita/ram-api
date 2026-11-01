@@ -12,7 +12,6 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 COPY pyproject.toml .
 COPY src/ram_api src/ram_api/
-COPY recognize_anything recognize_anything
 
 RUN --mount=type=cache,target=/root/.cache/uv \
 	uv sync --locked

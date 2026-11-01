@@ -2,6 +2,9 @@ version = 1
 revision = 5
 requires-python = ">=3.15"
 
+[manifest]
+overrides = [{ package = { name = "ram" }, dependencies = [{ name = "transformers", specifier = "==4.55.4" }, { name = "timm", specifier = "==1.0.30" }, { name = "fairscale", specifier = "==0.4.13" }] }]
+
 [[package]]
 name = "annotated-doc"
 version = "0.0.5"
@@ -703,6 +706,16 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/05/8e/961c0007c59b8dd7729d542c61a4d537767a59645b82a0b521206e1e25c2/pyyaml-6.0.3.tar.gz", hash = "sha256:d76623373421df22fb4cf8817020cbb7ef15c725b9d5e45f17e189bfc384190f", size = 130960, upload-time = "2025-09-25T21:33:16.546Z" }
 
 [[package]]
+name = "ram"
+version = "0.0.1"
+source = { git = "https://github.com/xinyu1205/recognize-anything.git?rev=7cb804a8609e9f4b1a50b7f31436d2df40bb9481#7cb804a8609e9f4b1a50b7f31436d2df40bb9481" }
+dependencies = [
+    { name = "fairscale" },
+    { name = "timm" },
+    { name = "transformers" },
+]
+
+[[package]]
 name = "ram-api"
 version = "0.1.0"
 source = { editable = "." }
@@ -714,6 +727,7 @@ dependencies = [
     { name = "pydantic-settings" },
     { name = "python-magic" },
     { name = "python-multipart" },
+    { name = "ram" },
     { name = "rawpy" },
     { name = "scipy" },
     { name = "timm" },
@@ -732,6 +746,7 @@ requires-dist = [
     { name = "pydantic-settings", specifier = "==2.16.2" },
     { name = "python-magic", specifier = "==0.4.27" },
     { name = "python-multipart", specifier = "==0.0.32" },
+    { name = "ram", git = "https://github.com/xinyu1205/recognize-anything.git?rev=7cb804a8609e9f4b1a50b7f31436d2df40bb9481" },
     { name = "rawpy", specifier = "==0.27.1" },
     { name = "scipy", specifier = "==1.18.1" },
     { name = "timm", specifier = "==1.0.30" },

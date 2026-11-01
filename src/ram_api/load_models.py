@@ -1,9 +1,8 @@
 import time
 import torch
 
-from recognize_anything.ram.models import ram_plus
-from recognize_anything.ram import inference_ram
-from recognize_anything.ram import get_transform
+from ram.models import ram_plus
+from ram import (inference_ram, get_transform)
 
 
 def load_ram_plus(image_size):

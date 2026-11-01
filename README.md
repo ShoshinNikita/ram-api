@@ -16,7 +16,3 @@ curl -v -F file=@/opt/app/recognize_anything/images/demo/demo1.jpg localhost:800
 
 1. Clone the repository with submodules `git clone --recurse-submodules`
 2. Run `make run-docker` to build a Docker image and run it
-
-## License
-
-See [./LICENSE](./LICENSE) and [./recognize_anything/NOTICE.txt](./recognize_anything/NOTICE.txt)

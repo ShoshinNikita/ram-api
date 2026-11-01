@@ -3,6 +3,24 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - TRANSFORMERS_OFFLINE=1
+    gpus: all
+    networks:
+      - no_internet
+
+  proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.proxy
     ports:
       - 8000:8000
-    gpus: all
+    command: ["simpleproxy", "-L", "8000", "-R", "ram-api:8000"]
+    networks:
+      - no_internet
+      - public
+
+networks:
+  no_internet:
+    internal: true
+  public:

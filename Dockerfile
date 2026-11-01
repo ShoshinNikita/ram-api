@@ -16,6 +16,8 @@ COPY src/ram_api src/ram_api/
 RUN --mount=type=cache,target=/root/.cache/uv \
 	uv sync --locked
 
+RUN uv run src/ram_api/init.py
+
 COPY Makefile .
 
 ENTRYPOINT ["make", "run"]

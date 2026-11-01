@@ -7,7 +7,7 @@ from ram import (inference_ram, get_transform)
 
 def load_ram_plus(image_size):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print("Using device: ", device)
+    print("using device: ", device)
 
     transform = get_transform(image_size=image_size)
 
@@ -18,15 +18,13 @@ def load_ram_plus(image_size):
     model.eval()
     model = model.to(device)
 
-    print("Loaded ram_plus_swin_large_14m.pth")
+    print("loaded ram_plus_swin_large_14m.pth")
 
     def inference(image):
         start_time = time.perf_counter()
 
         transformed = transform(image).unsqueeze(0).to(device)
         result = inference_ram(transformed, model)
-
-        print(f"processed image in {time.perf_counter() - start_time:0.4f}s")
 
         return {
             "english": result[0].split(" | "),
